@@ -8,6 +8,10 @@ import java.rmi.RemoteException;
 
 //TODO: access permissions
 
+/**	WorldInterface interface
+*	This interface provides methods to interact with World objects.
+*	It extends Remote, so it can be offerend via rmi.
+*/
 public interface WorldInterface extends Remote {
 	public int smallestFreeIndex() throws RemoteException;
 	public void setEntity(int index, Entity entity, boolean force) throws RemoteException;

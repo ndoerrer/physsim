@@ -11,7 +11,17 @@ import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 
+/**	Client class
+*	This class holds the client main method. It controls the execution flow for clients.
+*/
 public class Client{
+	/**	findWorld method
+	*	This method attempts to find a World hosted at given host, name and port.
+	*	@param host: name of the host, may be ipv4, ipv6 (in brackets) or domain-name
+	*	@param name: name of the desired world
+	*	@param port: port at which the rmi registry of the host is located
+	*	@returns	world if the desired world was found
+	*/
 	private static World findWorld(String host, String name, int port) {
 		World w = null;
 		Registry registry;
@@ -29,9 +39,13 @@ public class Client{
 		return w;
 	}
 
+	/**	main method
+	*	This is the main method for Client class
+	*	@param args: not yet used
+	*/
 	public static void main(String [] args){
 		World world = findWorld("localhost", "physsim-test", 1099);
-		// hardcoded is bad!
+		// TODO: hardcoded is bad!
 		Camera camera = new Camera(new double[]{20,0,0}, new double[]{-1,0,0},
 														new double[]{0,1,0});
 		Display display = new Display(world, camera);

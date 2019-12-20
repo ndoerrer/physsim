@@ -7,17 +7,25 @@ import physsim.graphics.Display;
 import physsim.graphics.Camera;
 import java.util.Date;
 
+/**	TestPhyssim class
+*	This is a testing class to execute the engine.
+*	Right now it takes up the role of Server objects.
+*/
 public class TestPhyssim{
+	/**	makeWorld method
+	*	This initializes a Wold instance to a default one. It showcases elastic collisions
+	*	of pheres.
+	*	@param N: number of Spheres to create (random pos and vel)
+	*	@returns an initialized World instance
+	*/
 	public static World makeWorld(int N){
 		World world = new World(-20,20,-20,20,-20,20);
-
-		double maxspeed = 5;
+/*		double maxspeed = 4;
 		double size = 20.0;
 		double radius = 1, x, y, z;//0.5
 		Color color;
 		double[] pos;
 		double[] vel;
-		int [] entities = new int[N];
 		float rand;
 		for (int i=0; i<N; i++){
 			x = (double)((int)(Math.random()*2*(size-1)-size+1));
@@ -29,15 +37,26 @@ public class TestPhyssim{
 			z = Math.random()*maxspeed*2-maxspeed;
 			vel = new double[] {x,y,z};
 			rand = (float)Math.random();
-			color = new Color(Color.HSBtoRGB(rand, 1.0f, 1.0f));
-			entities[i] = world.addEntity(new Ball(pos, vel, radius, color));
-		}
+			//color = new Color(Color.HSBtoRGB(rand, 1.0f, 1.0f));
+			color = new Color(255, 255, 255);
+			world.addEntity(new Ball(pos, vel, radius, color));
+		}*/
+		//world.addEntity(new Ball(new double[]{0,0,0}, new double[]{2,0,0}, 1,
+		//											new Color(255,255,255)));
 
 		//world.addEntity(new Ball(new double[]{0,0,0}, new double[]{1,1,1}, 0.5, Color.RED));
 		//world.addEntity(new Ball(new double[]{-3,-3,-3}, new double[]{2,2,2}, 0.5, Color.BLUE));
-		//world.addEntity(new Ball(new double[]{0,3,3}, new double[]{0,-2,-2}, 0.5, Color.BLUE));
+	//	world.addEntity(new Ball(new double[]{0,3,3}, new double[]{0,-2,-2}, 0.5, Color.BLUE));
 
-		//world.addEntity(new Ball(new double[]{0,0,0}, new double[]{0,0,0}, 0.5, Color.RED));
+		//TODO: this pair somehow changes impulse
+//		world.addEntity(new Ball(new double[]{1.5,2.2,2.2}, new double[]{-1,-1,-1},
+//																	0.5, Color.RED));
+//		world.addEntity(new Ball(new double[]{0,-2.2,-2.2}, new double[]{0,1,1},
+//																	0.5, Color.BLUE));
+
+	//	world.addEntity(new Ball(new double[]{0,-3,3}, new double[]{0,2,-2}, 0.5, Color.BLUE));
+		world.addEntity(new Ball(new double[]{0,3,0}, new double[]{0,-1,0}, 0.5, Color.BLUE));
+		world.addEntity(new Ball(new double[]{0,0,0.24}, new double[]{0,0,0}, 0.5, Color.RED));
 		//world.addEntity(new Ball(new double[]{0,1,-1}, new double[]{0,-0.1,0.1}, 0.5, Color.BLUE));
 		//world.addEntity(new Ball(new double[]{0,-1,-1}, new double[]{0,0.1,0.1}, 0.5, Color.BLUE));
 
@@ -70,31 +89,36 @@ public class TestPhyssim{
 		int wall_up = world.addEntity(new Polygon(new double[]{-20,-20,20},
 												new double[]{-20,20,20},
 												new double[]{20,20,20},
-												new double[]{20,-20,20}, Color.YELLOW));
+												new double[]{20,-20,20}, Color.RED));
 		int wall_down = world.addEntity(new Polygon(new double[]{-20,-20,-20},
 												new double[]{-20,20,-20},
 												new double[]{20,20,-20},
-												new double[]{20,-20,-20}, Color.YELLOW));
+												new double[]{20,-20,-20}, Color.GREEN));
 		int wall_right = world.addEntity(new Polygon(new double[]{-20,20,-20},
 												new double[]{-20,20,20},
 												new double[]{20,20,20},
-												new double[]{20,20,-20}, Color.GREEN));
+												new double[]{20,20,-20}, Color.BLUE));
 		int wall_left = world.addEntity(new Polygon(new double[]{-20,-20,-20},
 												new double[]{-20,-20,20},
 												new double[]{20,-20,20},
-												new double[]{20,-20,-20}, Color.GREEN));
+												new double[]{20,-20,-20}, Color.YELLOW));
 		int wall_front = world.addEntity(new Polygon(new double[]{-20,-20,-20},
 												new double[]{-20,-20,20},
 												new double[]{-20,20,20},
-												new double[]{-20,20,-20}, Color.PINK));
+												new double[]{-20,20,-20}, Color.CYAN));
 		int wall_back = world.addEntity(new Polygon(new double[]{20,-20,-20},
 												new double[]{20,-20,20},
 												new double[]{20,20,20},
-												new double[]{20,20,-20}, Color.PINK));
+												new double[]{20,20,-20}, Color.MAGENTA));
 
 		return world;
 	}
 
+	/**	main method
+	*	This method runs all the serverside things. A World instance is created
+	*	Then an engine is run as a separate thread.
+	*	@param args: command line arguments (not used)
+	*/
 	public static void main(String [] args){
 		World world = makeWorld(10);
 		Camera camera = new Camera(new double[]{20,0,0}, new double[]{-1,0,0},

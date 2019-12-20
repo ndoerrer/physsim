@@ -4,7 +4,7 @@ import physsim.graphics.Camera;
 import java.awt.Color;
 
 public class Rectangle extends Entity{
-	private final boolean DEBUG = false;
+	private final boolean DEBUG = true;
 	private double [] A;
 	private double [] B;
 	private double [] C;
@@ -77,10 +77,12 @@ public class Rectangle extends Entity{
 
 @Override
 	public double closestDistance(double[] point){
-		if (Math.abs(MyMath.dot(MyMath.sub(A, point), normal)) < 0.5 && DEBUG)
-			System.out.println("DEBUG: closestDistance is "+Math.abs(MyMath.dot(MyMath.sub(A, point), normal)));
+		if (Math.abs(MyMath.dot(MyMath.sub(A, point), normal)) < 1.0 && DEBUG){
+			System.out.print("DEBUG: closestDistance at " + A[0] + "," + A[1] + "," + A[2]);
+			System.out.println(": " + Math.abs(MyMath.dot(MyMath.sub(A, point), normal)));
+		}
+		// cos(alpha) = |a*normal| / (|a|*|n|)
 		return Math.abs(MyMath.dot(MyMath.sub(A, point), normal));
-
 	}
 
 @Override		// min of distances to the nodes

@@ -13,7 +13,16 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.AlreadyBoundException;
 
+/**	Server class
+*	This class handles world offering via rmi and runs the engine on server side.
+*/
 public class Server{
+	/**	makeWorld method
+	*	This initializes a Wold instance to a default one. It showcases elastic collisions
+	*	of pheres.
+	*	@param N: number of Spheres to create (random pos and vel)
+	*	@returns an initialized World instance
+	*/
 	public static World makeWorld(int N){
 		World world = new World(-20,20,-20,20,-20,20);
 
@@ -75,6 +84,13 @@ public class Server{
 		return world;
 	}
 
+	/**	offerWorld method
+	*	This world registers a World object at the hosts rmi-registry under given port.
+	*	@param w: World instance to offer
+	*	@param host: host name where rmi-registry is run
+	*	@param name: name of the world to host
+	*	@param port: port of the hosts rmi-registry
+	*/
 	public static void offerWorld(World w, String host, String name, int port){
 		Registry registry;
 		try {
@@ -97,6 +113,11 @@ public class Server{
 		}
 	}
 
+	/**	main method
+	*	This method runs all the serverside things. A World instance is created, offered
+	*	via rmi. Then an engine is run as a separate thread.
+	*	@param args: command line arguments (not used)
+	*/
 	public static void main(String [] args){
 		World world = makeWorld(10);
 		offerWorld(world, "localhost", "physsim-test", 1099);

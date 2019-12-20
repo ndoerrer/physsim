@@ -7,11 +7,20 @@ import java.util.LinkedList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**	CommandListener class
+*	This class implements the basic functionality of a shell being able to
+*	inject instructions by enqueueing in a way that engine instances an read
+*	handle them. It is meant to be run as a separate thread.
+*/
 public class CommandListener extends Thread{
 	BufferedReader br = null;
 	LinkedList<Instruction> instructions;
 	private Lock mutex;
 
+	/**	CommandListener default constructor
+	*	This constructor initializes the mutex and creates a Buffered reader to
+	*	receive instructions from. It also creates a List for the Instructions.
+	*/
 	CommandListener(){
 		mutex = new ReentrantLock();
 		System.out.println("shell created [CommandListener]");
@@ -19,6 +28,10 @@ public class CommandListener extends Thread{
 		instructions = new LinkedList<Instruction>();
 	}
 
+	/**	dequeueInstruction method
+	*	This method removes the first Instruction from the queue and returns it.
+	*	@returns: next Instruction
+	*/
 	protected Instruction dequeueInstruction(){
 		mutex.lock();
 		Instruction currentInstruction = instructions.pollFirst();
@@ -26,6 +39,12 @@ public class CommandListener extends Thread{
 		return currentInstruction;
 	}
 
+	/**	parseInput method 
+	*	This method processes a given input to create an Instruction from.
+	*	TODO
+	*	@param input: Input string to parse
+	*	@returns Instruction instance or null if invalid string
+	*/
 	private Instruction parseInput(String input){
 		if (input.charAt(0) != '!'){
 			input = input.replace(" ","_");
@@ -43,6 +62,10 @@ public class CommandListener extends Thread{
 		}
 	}
 
+	/**	run method
+	*	This method is the thread main to be run in parallel to the engine.
+	*	It handles catching and parsing input as well as queueing.
+	*/
 @Override
 	public void run(){
 		String input;

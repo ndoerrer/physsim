@@ -4,6 +4,11 @@ import java.util.Date;
 import java.util.LinkedList;
 import physsim.global.*;
 
+/**	Engine class
+*	This class handles physsim engine execution.
+*	It connections CommandListener and world and computes changes of entities over time.
+*	It is intended that this class and its run method are run as separate thread.
+*/
 public class Engine extends Thread{
 	private final int MINFRAMETIME = 20;	//milliseconds - TODO: as parameter
 	private boolean outputs;
@@ -12,6 +17,31 @@ public class Engine extends Thread{
 	private long time;
 	private long init_time;
 
+	/**	Engine parameter constructor
+	*	This constructor sets world to the one provided as parameter.
+	*	@param worldIn: world to set the engine to.
+	*/
+	public Engine(World worldIn){
+		outputs = true;
+		world = worldIn;
+	}
+
+	/**	Engine extended parameter constructor
+	*	This constructor sets world to the one provided as parameter. Also sets
+	*	outputs to control whether the Engine itself should print some outputs.
+	*	@param worldIn: world to set the engine to.
+	*	@param outputsIn: if true, sets outputs to true.
+	*/
+	public Engine(World worldIn, boolean outputsIn){
+		outputs = outputsIn;
+		world = worldIn;
+	}
+
+	/**	init method
+	*	This method initializes the time variables and starts a CommandListener
+	*	shell as separate thread.
+	*	@returns: returncode (right now only )
+	*/
 	public int init(){
 		init_time = new Date().getTime();
 		time = 0;
@@ -20,6 +50,12 @@ public class Engine extends Thread{
 		return 0;
 	}
 
+	/**	run_engine method
+	*	This is the method where all engine running stuff happens.
+	*	It handles instructions originating from the CommandListener and takes care
+	*	of events and movements happening in the simulation.
+	*	@returns: returncode (right now only )
+	*/
 	public int run_engine(){
 		LinkedList<Entity> all_ents;
 		Instruction currentInstruction;
@@ -82,18 +118,11 @@ public class Engine extends Thread{
 		return 0;
 	}
 
-	public Engine(World worldIn){
-		outputs = true;
-		world = worldIn;
-	}
-
-	public Engine(World worldIn, boolean outputsIn){
-		outputs = outputsIn;
-		world = worldIn;
-	}
-
+	/**	run method
+	*	This method creates an Engine object, initiates and calls run_engine()
+	*/
 @Override
-	public void run(){//LOG
+	public void run(){//TODO: LOG
 		Engine engine = new Engine(world);
 		engine.init();
 		engine.run_engine();
