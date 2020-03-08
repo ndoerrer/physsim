@@ -20,7 +20,7 @@ public class TestPhyssim{
 	*/
 	public static World makeWorld(int N){
 		World world = new World(-20,20,-20,20,-20,20);
-/*		double maxspeed = 4;
+		double maxspeed = 4;
 		double size = 20.0;
 		double radius = 1, x, y, z;//0.5
 		Color color;
@@ -37,10 +37,10 @@ public class TestPhyssim{
 			z = Math.random()*maxspeed*2-maxspeed;
 			vel = new double[] {x,y,z};
 			rand = (float)Math.random();
-			//color = new Color(Color.HSBtoRGB(rand, 1.0f, 1.0f));
-			color = new Color(255, 255, 255);
+			color = new Color(Color.HSBtoRGB(rand, 1.0f, 1.0f));
+			//color = new Color(255, 255, 255);
 			world.addEntity(new Ball(pos, vel, radius, color));
-		}*/
+		}
 		//world.addEntity(new Ball(new double[]{0,0,0}, new double[]{2,0,0}, 1,
 		//											new Color(255,255,255)));
 
@@ -49,14 +49,16 @@ public class TestPhyssim{
 	//	world.addEntity(new Ball(new double[]{0,3,3}, new double[]{0,-2,-2}, 0.5, Color.BLUE));
 
 		//TODO: this pair somehow changes impulse
+//		world.addEntity(new Ball(new double[]{0,3,0}, new double[]{0,-1,0}, 0.5, Color.BLUE));
+//		world.addEntity(new Ball(new double[]{0,0,0.24}, new double[]{0,0,0}, 0.5, Color.RED));
+
+
 //		world.addEntity(new Ball(new double[]{1.5,2.2,2.2}, new double[]{-1,-1,-1},
 //																	0.5, Color.RED));
 //		world.addEntity(new Ball(new double[]{0,-2.2,-2.2}, new double[]{0,1,1},
 //																	0.5, Color.BLUE));
 
 	//	world.addEntity(new Ball(new double[]{0,-3,3}, new double[]{0,2,-2}, 0.5, Color.BLUE));
-		world.addEntity(new Ball(new double[]{0,3,0}, new double[]{0,-1,0}, 0.5, Color.BLUE));
-		world.addEntity(new Ball(new double[]{0,0,0.24}, new double[]{0,0,0}, 0.5, Color.RED));
 		//world.addEntity(new Ball(new double[]{0,1,-1}, new double[]{0,-0.1,0.1}, 0.5, Color.BLUE));
 		//world.addEntity(new Ball(new double[]{0,-1,-1}, new double[]{0,0.1,0.1}, 0.5, Color.BLUE));
 
